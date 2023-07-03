@@ -14,10 +14,12 @@ module.exports = {
         secondaryBtn: "#e3ddee",
         accentColor: "#34264f",
       },
-      // fontFamily: {
-      //   sans: ["Roboto", "Arial", "sans-serif"],
-      //   serif: ["EBGaramond"],
-      // },
+      fontFamily: {
+        montserrat: ["Montserrat"],
+        lato: ["Lato"],
+        garamond: ["Garamond"],
+        vollkorn: ["Vollkorn"],
+      },
     },
   },
   plugins: [],
