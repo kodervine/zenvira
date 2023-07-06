@@ -1,106 +1,112 @@
-import Image from "next/image";
+import Link from "next/link";
 
 const RegisterPage = () => {
   return (
-    <section className="h-screen">
-      <div className="h-full lg:px-12">
-        <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
-          <div className="shrink-1 mb-12 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
-            <img
-              src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-              className="w-full"
-              alt="Sample image"
-            />
-          </div>
+    <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
+      <div className="relative py-3 sm:max-w-xl lg:max-w-3xl sm:mx-auto ">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-purple-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+          <div className="max-w-md mx-auto">
+            <div>
+              <h1 className="text-2xl font-semibold">Zenvira</h1>
+            </div>
+            <div className="flex flex-row items-center justify-center lg:justify-start">
+              <p className="mb-0 mr-4 text-lg">Sign in with</p>
 
-          <section className="bg-gray-50 dark:bg-gray-900">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-              <a
-                href="#"
-                className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-              >
-                <Image
-                  className="w-8 h-8 mr-2"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-                  alt="logo"
-                  width={30}
-                  height={30}
-                />
-                Flowbite
-              </a>
-              <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                  <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                    Sign in to your account
-                  </h1>
-                  <form className="space-y-4 md:space-y-6" action="#">
-                    <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Your email
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="name@company.com"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Password
-                      </label>
-                      <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="••••••••"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                          <input
-                            id="remember"
-                            aria-describedby="remember"
-                            type="checkbox"
-                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                          />
-                        </div>
-                        <div className="ml-3 text-sm">
-                          <label className="text-gray-500 dark:text-gray-300">
-                            Remember me
-                          </label>
-                        </div>
-                      </div>
-                      <a
-                        href="#"
-                        className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      >
-                        Forgot password?
-                      </a>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    >
-                      Sign in
+              {["App", "G+", "FB"].map((provider, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  data-te-ripple-init
+                  data-te-ripple-color="light"
+                  className="mx-1 h-9 w-9 rounded-full bg-primary uppercase leading-normal text-purple-900 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 "
+                >
+                  {provider}
+                </button>
+              ))}
+            </div>
+
+            <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+              <p className="mx-4 mb-0 text-center font-semibold dark:text-white">
+                Or
+              </p>
+            </div>
+            <div className="divide-y divide-gray-200">
+              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                <div className="relative">
+                  <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                    placeholder="Email address"
+                  />
+                  <label
+                    htmlFor="email"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm rounded-lg"
+                  >
+                    Email Address
+                  </label>
+                </div>
+                <div className="relative">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600 rounded-lg"
+                    placeholder="Password"
+                  />
+                  <label
+                    htmlFor="password"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Password
+                  </label>
+                </div>
+                {/* <div className="relative">
+                    <button className="bg-blue-500 text-white rounded-md px-2 py-1">
+                      Submit
                     </button>
-                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Don’t have an account yet?{" "}
-                      <a
-                        href="#"
-                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      >
-                        Sign up
-                      </a>
-                    </p>
-                  </form>
+                  </div> */}
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
+                    <input
+                      className="relative float-left -ml-[1.5rem] mr-[6px] mt-[0.15rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 outline-none before:pointer-events-none"
+                      type="checkbox"
+                      value=""
+                      id="exampleCheck2"
+                    />
+                    <label className="inline-block pl-[0.15rem] hover:cursor-pointer">
+                      Remember me
+                    </label>
+                  </div>
+
+                  <a href="#!">Forgot password?</a>
+                </div>
+
+                <div className="text-center lg:text-left">
+                  <button
+                    type="button"
+                    className="inline-block w-full rounded bg-[#262d4f] px-7 pb-2.5 pt-3 text-sm font-medium  leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-purple-900 "
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                  >
+                    Create account
+                  </button>
+
+                  <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
+                    Already have an account?
+                    <Link
+                      href="login"
+                      className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
+                    >
+                      Log in instead
+                    </Link>
+                  </p>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         </div>
       </div>
     </section>
