@@ -1,13 +1,19 @@
+"use client";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { IAuthFormInput } from "@/app/(features)/(auth)";
 
 const LoginPage = () => {
+  const { register, handleSubmit } = useForm<IAuthFormInput>();
+  const onSubmit: SubmitHandler<IAuthFormInput> = (data) => alert(data);
   return (
     <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-purple-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-          <div className="max-w-md mx-auto">
+          <section className="max-w-md mx-auto">
             <div>
+              <h3 className="text-2xl font-semibold">Welcome back</h3>
               <h1 className="text-2xl font-semibold">Zenvira</h1>
             </div>
             <div className="flex flex-row items-center justify-center lg:justify-start">
@@ -32,14 +38,18 @@ const LoginPage = () => {
               </p>
             </div>
             <div className="divide-y divide-gray-200">
-              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+              <form
+                className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <div className="relative">
                   <input
                     id="email"
-                    name="email"
+                    // name="email"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="Email address"
+                    {...register("email", { required: true, maxLength: 20 })}
                   />
                   <label
                     htmlFor="email"
@@ -51,10 +61,11 @@ const LoginPage = () => {
                 <div className="relative">
                   <input
                     id="password"
-                    name="password"
+                    // name="password"
                     type="password"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="Password"
+                    {...register("password", { pattern: /^[A-Za-z]+$/i })}
                   />
                   <label
                     htmlFor="password"
@@ -86,7 +97,7 @@ const LoginPage = () => {
 
                 <div className="text-center lg:text-left">
                   <button
-                    type="button"
+                    type="submit"
                     className="inline-block w-full rounded bg-[#262d4f] px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-purple-900"
                     data-te-ripple-init
                     data-te-ripple-color="light"
@@ -104,9 +115,9 @@ const LoginPage = () => {
                     </Link>
                   </p>
                 </div>
-              </div>
+              </form>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </section>
