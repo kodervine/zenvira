@@ -1,6 +1,17 @@
+"use client";
 import Link from "next/link";
-
+import { useForm, SubmitHandler } from "react-hook-form";
+import { AuthSocialMediaPage, IAuthFormInput } from "@/app/(features)/(auth)";
+import { InputField } from "@/app/_components";
 const RegisterPage = () => {
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAuthFormInput>();
+  const onSubmit: SubmitHandler<IAuthFormInput> = (data) =>
+    alert("form is working");
   return (
     <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl lg:max-w-3xl sm:mx-auto ">
@@ -8,90 +19,41 @@ const RegisterPage = () => {
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
             <div>
-              <h1 className="text-2xl font-semibold">Zenvira</h1>
+              <h1 className="text-2xl font-semibold">
+                Zenvira: Begin your best life today
+              </h1>
             </div>
-            <div className="flex flex-row items-center justify-center lg:justify-start">
-              <p className="mb-0 mr-4 text-lg">Sign in with</p>
-
-              {["App", "G+", "FB"].map((provider, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  data-te-ripple-init
-                  data-te-ripple-color="light"
-                  className="mx-1 h-9 w-9 rounded-full bg-primary uppercase leading-normal text-purple-900 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 "
-                >
-                  {provider}
-                </button>
-              ))}
-            </div>
-
-            <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-              <p className="mx-4 mb-0 text-center font-semibold dark:text-white">
-                Or
-              </p>
-            </div>
+            <AuthSocialMediaPage />
             <div className="divide-y divide-gray-200">
-              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                <div className="relative">
-                  <input
-                    id="email"
-                    name="email"
-                    type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Email address"
-                  />
-                  <label
-                    htmlFor="email"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm rounded-lg"
-                  >
-                    Email Address
-                  </label>
-                </div>
-                <div className="relative">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600 rounded-lg"
-                    placeholder="Password"
-                  />
-                  <label
-                    htmlFor="password"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    Password
-                  </label>
-                </div>
-                {/* <div className="relative">
-                    <button className="bg-blue-500 text-white rounded-md px-2 py-1">
-                      Submit
-                    </button>
-                  </div> */}
-                <div className="mb-6 flex items-center justify-between">
-                  <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
-                    <input
-                      className="relative float-left -ml-[1.5rem] mr-[6px] mt-[0.15rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 outline-none before:pointer-events-none"
-                      type="checkbox"
-                      value=""
-                      id="exampleCheck2"
-                    />
-                    <label className="inline-block pl-[0.15rem] hover:cursor-pointer">
-                      Remember me
-                    </label>
-                  </div>
-
-                  <a href="#!">Forgot password?</a>
-                </div>
+              <form
+                className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <InputField
+                  type="email"
+                  label="Email Address"
+                  error={errors.email}
+                  registration={register("email")}
+                  className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                  placeholder="Your active email address"
+                />
+                <InputField
+                  type="password"
+                  label="Password"
+                  error={errors.password}
+                  registration={register("password")}
+                  className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                  placeholder="At least 8 characters long"
+                />
 
                 <div className="text-center lg:text-left">
                   <button
-                    type="button"
-                    className="inline-block w-full rounded bg-[#262d4f] px-7 pb-2.5 pt-3 text-sm font-medium  leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-purple-900 "
+                    type="submit"
+                    className="inline-block w-full rounded bg-[#262d4f] px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-purple-900"
                     data-te-ripple-init
                     data-te-ripple-color="light"
                   >
-                    Create account
+                    Register
                   </button>
 
                   <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
@@ -104,7 +66,7 @@ const RegisterPage = () => {
                     </Link>
                   </p>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
