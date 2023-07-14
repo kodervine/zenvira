@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { IAuthFormInput } from "@/app/(features)/(auth)";
+import { InputField } from "@/app/_components";
 
 const LoginPage = () => {
   const {
@@ -48,60 +49,25 @@ const LoginPage = () => {
                 className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className="relative">
-                  <input
-                    id="email"
-                    type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Email address"
-                    {...register("email", { required: true })}
-                  />
-                  <label
-                    htmlFor="email"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    Email Address
-                  </label>
-                  {errors.email && (
-                    <p className="error">Email address is required.</p>
-                  )}
-                </div>
-                <div className="relative">
-                  <input
-                    id="password"
-                    type="password"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Password"
-                    {...register("password", { pattern: /^[A-Za-z]+$/i })}
-                  />
-                  <label
-                    htmlFor="password"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    Password
-                  </label>
-                </div>
-                {/* <div className="relative">
-                    <button className="bg-blue-500 text-white rounded-md px-2 py-1">
-                      Submit
-                    </button>
-                  </div> */}
+                <InputField
+                  type="email"
+                  label="Email Address"
+                  error={errors.email}
+                  registration={register("email")}
+                  className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                  placeholder="Your active email address"
+                />
+                <InputField
+                  type="password"
+                  label="Password"
+                  error={errors.password}
+                  registration={register("password")}
+                  className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                  placeholder="At least 8 characters long"
+                />
                 <div className="mb-6 flex items-center justify-between">
-                  <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
-                    <input
-                      className="relative float-left -ml-[1.5rem] mr-[6px] mt-[0.15rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 outline-none before:pointer-events-none"
-                      type="checkbox"
-                      value=""
-                      id="exampleCheck2"
-                    />
-                    <label className="inline-block pl-[0.15rem] hover:cursor-pointer">
-                      Remember me
-                    </label>
-                  </div>
-
                   <a href="#!">Forgot password?</a>
                 </div>
-
                 <div className="text-center lg:text-left">
                   <button
                     type="submit"
