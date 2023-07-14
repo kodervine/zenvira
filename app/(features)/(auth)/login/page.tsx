@@ -4,8 +4,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { IAuthFormInput } from "@/app/(features)/(auth)";
 
 const LoginPage = () => {
-  const { register, handleSubmit } = useForm<IAuthFormInput>();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAuthFormInput>();
   const onSubmit: SubmitHandler<IAuthFormInput> = (data) => alert(data);
+
   return (
     <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -45,11 +51,10 @@ const LoginPage = () => {
                 <div className="relative">
                   <input
                     id="email"
-                    // name="email"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="Email address"
-                    {...register("email", { required: true, maxLength: 20 })}
+                    {...register("email", { required: true })}
                   />
                   <label
                     htmlFor="email"
@@ -57,11 +62,13 @@ const LoginPage = () => {
                   >
                     Email Address
                   </label>
+                  {errors.email && (
+                    <p className="error">Email address is required.</p>
+                  )}
                 </div>
                 <div className="relative">
                   <input
                     id="password"
-                    // name="password"
                     type="password"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="Password"
