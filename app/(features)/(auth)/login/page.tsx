@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { IAuthFormInput } from "@/app/(features)/(auth)";
+import { AuthSocialMediaPage, IAuthFormInput } from "@/app/(features)/(auth)";
 import { InputField } from "@/app/_components";
 
 const LoginPage = () => {
@@ -14,36 +14,17 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<IAuthFormInput> = (data) => alert(data);
 
   return (
-    <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
+    <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12 ">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-purple-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <section className="max-w-md mx-auto">
-            <div>
-              <h3 className="text-2xl font-semibold">Welcome back</h3>
-              <h1 className="text-2xl font-semibold">Zenvira</h1>
-            </div>
-            <div className="flex flex-row items-center justify-center lg:justify-start">
-              <p className="mb-0 mr-4 text-lg">Sign in with</p>
-
-              {["App", "G+", "FB"].map((provider, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  data-te-ripple-init
-                  data-te-ripple-color="light"
-                  className="mx-1 h-9 w-9 rounded-full bg-primary uppercase leading-normal text-purple-900 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 "
-                >
-                  {provider}
-                </button>
-              ))}
-            </div>
-
-            <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-              <p className="mx-4 mb-0 text-center font-semibold dark:text-white">
-                Or
-              </p>
-            </div>
+            <article>
+              <h1 className="text-2xl font-semibold">
+                Sign in for the best of zenvira
+              </h1>
+            </article>
+            <AuthSocialMediaPage />
             <div className="divide-y divide-gray-200">
               <form
                 className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"

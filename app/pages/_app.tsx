@@ -16,14 +16,11 @@ const vollkorn = Vollkorn({
 function MyApp({ Component, pageProps }: any) {
   return (
     <>
-      <style jsx global>
-        {`
-          :root {
-            --font-merriweather: ${merriweather.style.fontFamily};
-            --font-vollkorn: ${vollkorn.style.fontFamily};
-          }
-        `}
-      </style>
+      <style jsx global>{`
+        html {
+          font-family: ${vollkorn.style.fontFamily};
+        }
+      `}</style>
 
       <Component {...pageProps} />
     </>
