@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import {
-  ExistingGoals,
+  ExistingGoalDataTable,
   GoalSettingForm,
   GoalSubmissionSuccess,
 } from "@/app/(features)/goalsetting";
@@ -17,7 +17,7 @@ const GoalSettingTool = () => {
         {/* Title and other elements */}
         <div className="flex flex-col md:flex-row">
           <div className="flex-1 md:pr-0 md:pr-8">
-            <ExistingGoals />
+            <ExistingGoalDataTable />
           </div>
           {/* Should show more details about each goal by the side when a row from the table above is clicked */}
           <div className="flex-2 md:pl-0 md:pl-8">

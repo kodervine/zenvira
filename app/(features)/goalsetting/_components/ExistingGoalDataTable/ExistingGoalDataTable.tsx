@@ -38,7 +38,12 @@ import {
   EGoalPriority,
   EGoalStatus,
   IGoalItems,
-} from "./../../_types";
+} from "../../_types";
+import {
+  ExistingGoalDetails,
+  useGoalDetailsStore,
+} from "@/app/(features)/goalsetting";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 
 export const data: IGoalItems[] = [
   {
@@ -149,7 +154,16 @@ export const columns: ColumnDef<IGoalItems>[] = [
   },
 ];
 
-export function GoalDataTable() {
+export function ExistingGoalDataTable() {
+  const [selectedGoal, setSelectedGoal] = React.useState<IGoalItems | null>(
+    null
+  );
+  const { openGoalDetails, closeGoalDetails } = useGoalDetailsStore();
+  const handleGoalClick = (goal: IGoalItems) => {
+    setSelectedGoal(goal);
+    openGoalDetails(goal.id);
+  };
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -241,6 +255,7 @@ export function GoalDataTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => handleGoalClick(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -288,6 +303,17 @@ export function GoalDataTable() {
             Next
           </Button>
         </div>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">Open</Button>
+          </SheetTrigger>{" "}
+          {selectedGoal && (
+            <ExistingGoalDetails
+              goal={selectedGoal}
+              onClose={closeGoalDetails}
+            />
+          )}
+        </Sheet>
       </div>
     </div>
   );
