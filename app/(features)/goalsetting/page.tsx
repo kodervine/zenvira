@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-
 import {
   ExistingGoals,
   GoalSettingForm,
@@ -20,7 +19,8 @@ const GoalSettingTool = () => {
           <div className="flex-1 md:pr-0 md:pr-8">
             <ExistingGoals />
           </div>
-          <div className="flex-1 md:pl-0 md:pl-8">
+          {/* Should show more details about each goal by the side when a row from the table above is clicked */}
+          <div className="flex-2 md:pl-0 md:pl-8">
             {!isGoalSubmitted ? <GoalSettingForm /> : <GoalSubmissionSuccess />}
           </div>
         </div>

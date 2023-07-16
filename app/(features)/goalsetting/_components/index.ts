@@ -5,3 +5,4 @@ export * from "./GoalProgressTracking";
 export * from "./GoalSettingForm";
 export * from "./GoalSubmissionSuccess";
 export * from "./GoalTemplates";
+export * from "./GoalDataTable";
