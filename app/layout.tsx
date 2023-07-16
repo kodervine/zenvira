@@ -1,4 +1,5 @@
 import "./globals.css";
+import { ThemeProvider } from "@/app/themes";
 
 export const metadata = {
   title: "Zenvira - Goal-Setting, Habit Tracking, Journaling and more",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+      </ThemeProvider>
     </html>
   );
 }
