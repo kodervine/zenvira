@@ -1,5 +1,15 @@
 "use client";
 import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { EGoalCategory } from "../../_types";
 
 export const GoalSettingForm = () => {
   const [goals, setGoals] = useState<
@@ -83,24 +93,37 @@ export const GoalSettingForm = () => {
             onChange={handleInputChange}
             className="px-4 py-2 rounded-md bg-gray-100"
           />
-        </div>
-        <div>
-          <label htmlFor="category" className="block">
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={newGoal.category}
-            onChange={handleSelectInputChange}
-            className="px-4 py-2 rounded-md bg-gray-100"
-          >
-            <option value="personal">Personal</option>
-            <option value="work">Work</option>
-            <option value="fitness">Fitness</option>
-          </select>
-        </div>
+        </div>{" "}
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Goal Categories</SelectLabel>
+              <SelectItem value={EGoalCategory.Personal}>
+                {EGoalCategory.Personal}
+              </SelectItem>
+              <SelectItem value={EGoalCategory.Career}>
+                {EGoalCategory.Career}
+              </SelectItem>
+              <SelectItem value={EGoalCategory.Education}>
+                {EGoalCategory.Education}
+              </SelectItem>
+              <SelectItem value={EGoalCategory.Health}>
+                {EGoalCategory.Health}
+              </SelectItem>
+              <SelectItem value={EGoalCategory.Lifestyle}>
+                {EGoalCategory.Lifestyle}
+              </SelectItem>
+              <SelectItem value={EGoalCategory.Other}>
+                {EGoalCategory.Other}
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
+
       <button
         className="bg-#262d4f hover:bg-#34264f text-white py-3 px-6 rounded-lg mt-6 w-full"
         onClick={handleGoalSubmit}
