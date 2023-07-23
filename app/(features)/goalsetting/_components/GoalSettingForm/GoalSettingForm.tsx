@@ -96,7 +96,7 @@ export const GoalSettingForm = () => {
         </div>{" "}
         <Select>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select a fruit" />
+            <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
