@@ -15,10 +15,9 @@ import { IGoalItems } from "@/app/(features)/goalsetting";
 
 interface GoalDetailsProps {
   goal: IGoalItems;
-  onClose: () => void;
 }
 
-export function ExistingGoalDetails({ goal, onClose }: GoalDetailsProps) {
+export function ExistingGoalDetails({ goal }: GoalDetailsProps) {
   if (!goal) {
     return null;
   }

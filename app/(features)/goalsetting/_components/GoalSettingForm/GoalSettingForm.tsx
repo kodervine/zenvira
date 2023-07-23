@@ -20,6 +20,10 @@ export const GoalSettingForm = () => {
     }));
   };
 
+  const handleSelectInputChange = () => {
+    console.log(newGoal);
+  };
+
   const handleDetailsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewGoal((prevGoal) => ({
       ...prevGoal,
@@ -88,7 +92,7 @@ export const GoalSettingForm = () => {
             id="category"
             name="category"
             value={newGoal.category}
-            // onChange={handleInputChange}
+            onChange={handleSelectInputChange}
             className="px-4 py-2 rounded-md bg-gray-100"
           >
             <option value="personal">Personal</option>

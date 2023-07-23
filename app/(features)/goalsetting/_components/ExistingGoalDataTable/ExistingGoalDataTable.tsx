@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -30,8 +29,10 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
-// absolute path throws undefined errors. Got the idea to use the path import from here - https://github.com/nrwl/nx/issues/9319
+import {
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+} from "@radix-ui/react-dropdown-menu"; // absolute path throws undefined errors. Got the idea to use the path import from here - https://github.com/nrwl/nx/issues/9319
 import {
   EGoalCategory,
   EGoalFrequency,
@@ -39,11 +40,7 @@ import {
   EGoalStatus,
   IGoalItems,
 } from "../../_types";
-import {
-  ExistingGoalDetails,
-  useGoalDetailsStore,
-} from "@/app/(features)/goalsetting";
-import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { ExistingGoalDetails } from "@/app/(features)/goalsetting";
 
 export const data: IGoalItems[] = [
   {
@@ -158,10 +155,9 @@ export function ExistingGoalDataTable() {
   const [selectedGoal, setSelectedGoal] = React.useState<IGoalItems | null>(
     null
   );
-  const { openGoalDetails, closeGoalDetails } = useGoalDetailsStore();
+
   const handleGoalClick = (goal: IGoalItems) => {
     setSelectedGoal(goal);
-    openGoalDetails(goal.id);
   };
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -303,17 +299,7 @@ export function ExistingGoalDataTable() {
             Next
           </Button>
         </div>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline">Open</Button>
-          </SheetTrigger>{" "}
-          {selectedGoal && (
-            <ExistingGoalDetails
-              goal={selectedGoal}
-              onClose={closeGoalDetails}
-            />
-          )}
-        </Sheet>
+        {selectedGoal && <ExistingGoalDetails goal={selectedGoal} />}
       </div>
     </div>
   );

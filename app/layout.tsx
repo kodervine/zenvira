@@ -14,9 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        {children}
-      </ThemeProvider>
+      <body>
+        {" "}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
