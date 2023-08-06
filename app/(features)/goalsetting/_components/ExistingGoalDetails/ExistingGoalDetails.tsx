@@ -10,6 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { GoalSettingForm, IGoalItems } from "@/app/(features)/goalsetting";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface GoalDetailsProps {
   goal: IGoalItems;
@@ -29,8 +30,9 @@ export function ExistingGoalDetails({ goal }: GoalDetailsProps) {
           <SheetTitle>{goal.goal}</SheetTitle>
           <SheetDescription>{goal.description}</SheetDescription>
         </SheetHeader>
-
-        <GoalSettingForm />
+        <ScrollArea className="h-5/6  rounded-md border p-3">
+          <GoalSettingForm />
+        </ScrollArea>
 
         <SheetFooter>
           <SheetClose asChild>
