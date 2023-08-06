@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -11,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { IGoalItems } from "@/app/(features)/goalsetting";
+import { GoalSettingForm, IGoalItems } from "@/app/(features)/goalsetting";
 
 interface GoalDetailsProps {
   goal: IGoalItems;
@@ -31,34 +29,14 @@ export function ExistingGoalDetails({ goal }: GoalDetailsProps) {
           <SheetTitle>{goal.goal}</SheetTitle>
           <SheetDescription>{goal.description}</SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="deadline" className="text-right">
-              Deadline
-            </Label>
-            <Input
-              id="deadline"
-              value={goal.deadline}
-              className="col-span-3"
-              disabled
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="progress" className="text-right">
-              Progress
-            </Label>
-            <Input
-              id="progress"
-              value={`${goal.progress}%`}
-              className="col-span-3"
-              disabled
-            />
-          </div>
-          {/* Add more goal details here */}
-        </div>
+
+        <GoalSettingForm />
+
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" className="w-full">
+              Save changes
+            </Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
