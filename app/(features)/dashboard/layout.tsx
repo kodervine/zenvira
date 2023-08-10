@@ -1,14 +1,21 @@
+import { Sidebar } from "@/app/_components";
+import "@/app/globals.css";
+
+export const metadata = {
+  title: "Zenvira | Dashboard",
+  description:
+    "Designed to inspire and support you on your path to personal growth and productivity.  Zenvira is your cheerleader, always ready to celebrate your achievements, big or small. Whether you reach a milestone, establish a new habit, or make progress towards your goals.",
+};
+
 export default function DashboardLayout({
-  children, // will be a page or nested layout
+  children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <nav></nav>
-
+    <main className="flex">
+      <Sidebar />
       {children}
-    </section>
+    </main>
   );
 }
