@@ -1,5 +1,3 @@
-"use client";
-
 import { HabitList, HabitForm } from "@/app/(features)/habittracker";
 
 const HabitTrackerPage = () => {
