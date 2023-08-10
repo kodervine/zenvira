@@ -1,10 +1,10 @@
-# Zenvira: Your Personal Development Tool
+## Zenvira: Your Personal Development Tool
 
-## In Progress
+### In Progress
 
-![Zenvira Banner](zenvira-banner.png)
+<!-- ![Zenvira Banner](zenvira-banner.png) -->
 
-Zenvira is a comprehensive personal development tool designed to empower you in various aspects of your life. With Zenvira, you can set goals, track habits, journal your thoughts, perform daily check-ins, create inspiring vision boards, monitor your progress, maintain gratitude lists, and even compose letters to your future self. This project aims to provide you with a holistic platform for personal growth and self-improvement.
+Zenvira is a comprehensive personal development tool. This project aims to provide you with a holistic platform for personal growth and self-improvement.
 
 ## Proposed Features
 
@@ -26,12 +26,12 @@ Check out the live demo of Zenvira:
 
 ## Technologies Used
 
-This project is built using modern web development tools and technologies:
+This project is built using these tools and technologies:
 
 - **TypeScript:** A statically typed superset of JavaScript for improved code quality.
 - **React:** A popular JavaScript library for building user interfaces.
 - **Tailwind CSS:** A utility-first CSS framework for fast and responsive UI development.
-- **Shadcn UI:** _(Please provide a brief description or link if Shadcn UI is a custom library)_
+- **Shadcn UI:** Re-usable components built using Radix UI and Tailwind CSS.
 - **React Hook Form:** Efficiently manage forms and form validations in React.
 - **Zustand:** A small, fast state management library for React.
 - **Zod:** A runtime type checking library for TypeScript.
