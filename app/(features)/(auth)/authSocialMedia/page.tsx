@@ -2,7 +2,7 @@ import { FcGoogle } from "react-icons/fc";
 import { BsMeta } from "react-icons/bs";
 import { AiFillApple } from "react-icons/ai";
 
-export const AuthSocialMediaPage = () => {
+export default function AuthSocialMediaPage() {
   const socialMediaIcons = [
     { icon: <FcGoogle />, id: "google" },
     { icon: <BsMeta />, id: "meta" },
@@ -33,4 +33,4 @@ export const AuthSocialMediaPage = () => {
       </article>
     </>
   );
-};
+}

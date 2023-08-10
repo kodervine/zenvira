@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { Form } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { AuthSocialMediaPage } from "@/app/(features)/(auth)";
+import AuthSocialMediaPage from "@/app/(features)/(auth)/authSocialMedia/page";
 import Link from "next/link";
 
 const FormSchema = z.object({
