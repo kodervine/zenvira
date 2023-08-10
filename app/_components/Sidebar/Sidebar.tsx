@@ -4,6 +4,7 @@ import { GiStumpRegrowth } from "react-icons/gi";
 import { PiStepsDuotone } from "react-icons/pi";
 import { BsJournals } from "react-icons/bs";
 import Link from "next/link";
+import Image from "next/image";
 
 const sidebarElements = [
   { name: "Home", icon: FaHome, link: "/dashboard" },
@@ -24,7 +25,7 @@ export const Sidebar = () => {
   return (
     <main className="h-screen p-3 space-y-2 w-60 bg-gray-900 text-gray-100">
       <section className="flex items-center p-2 space-x-4">
-        <img
+        <Image
           src="https://source.unsplash.com/100x100/?portrait"
           alt=""
           className="w-12 h-12 rounded-full dark:bg-gray-500"

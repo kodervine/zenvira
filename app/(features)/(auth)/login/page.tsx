@@ -77,7 +77,7 @@ const LoginPage = () => {
                     </button>
 
                     <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
-                      Don't have an account?
+                      Don&apos;t have an account?
                       <Link href="register">Register</Link>
                     </p>
                   </div>
