@@ -1,74 +1,92 @@
 "use client";
+import { useForm } from "react-hook-form";
+import { CustomInputField } from "@/app/_components";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "@/components/ui/use-toast";
+import { Form } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
+import { AuthSocialMediaPage } from "@/app/(features)/(auth)";
 import Link from "next/link";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { AuthSocialMediaPage, IAuthFormInput } from "@/app/(features)/(auth)";
-import { InputField } from "@/app/_components";
+
+const FormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
 const RegisterPage = () => {
-  const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IAuthFormInput>();
-  const onSubmit: SubmitHandler<IAuthFormInput> = (data) =>
-    alert("form is working");
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
+  const router = useRouter();
+
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    toast({
+      title:
+        "Sign up successful. Please check your email to confirm your account",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+
+    router.push("/goalsetting");
+  };
+
   return (
-    <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
-      <div className="relative py-3 sm:max-w-xl lg:max-w-3xl sm:mx-auto ">
+    <section className="min-h-screen  py-6 flex flex-col justify-center sm:py-12 ">
+      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-purple-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-          <div className="max-w-md mx-auto">
-            <div>
+          <section className="max-w-md mx-auto">
+            <article>
               <h1 className="text-2xl font-semibold">
-                Zenvira: Begin your best life today
+                Sign in for the best of zenvira
               </h1>
-            </div>
+            </article>
             <AuthSocialMediaPage />
             <div className="divide-y divide-gray-200">
-              <form
-                className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <InputField
-                  type="email"
-                  label="Email Address"
-                  error={errors.email}
-                  registration={register("email")}
-                  className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                  placeholder="Your active email address"
-                />
-                <InputField
-                  type="password"
-                  label="Password"
-                  error={errors.password}
-                  registration={register("password")}
-                  className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                  placeholder="At least 8 characters long"
-                />
-
-                <div className="text-center lg:text-left">
-                  <button
-                    type="submit"
-                    className="inline-block w-full rounded bg-[#262d4f] px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-purple-900"
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                  >
-                    Register
-                  </button>
-
-                  <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
-                    Already have an account?
-                    <Link
-                      href="login"
-                      className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                >
+                  <CustomInputField
+                    label="Email"
+                    placeholder="Your active email address"
+                    name="email"
+                    control={form.control}
+                    className="w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none "
+                  />
+                  <CustomInputField
+                    label="Password"
+                    placeholder="Your password"
+                    name="password"
+                    control={form.control}
+                    className=" w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none "
+                  />
+                  <div className="mb-6 flex items-center justify-between">
+                    <a href="#!">Forgot password?</a>
+                  </div>
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      className="inline-block w-full rounded-lg bg-[#262d4f] px-7 pb-2.5 pt-3 text-sm font-medium  text-white  transition duration-150 ease-in-out hover:bg-gray-900"
                     >
-                      Log in instead
-                    </Link>
-                  </p>
-                </div>
-              </form>
+                      Register
+                    </button>
+
+                    <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
+                      Already have an account?
+                      <Link href="login">Log in instead</Link>
+                    </p>
+                  </div>
+                </form>
+              </Form>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </section>

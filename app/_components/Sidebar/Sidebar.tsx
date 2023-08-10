@@ -8,7 +8,7 @@ import Link from "next/link";
 const sidebarElements = [
   { name: "Home", icon: FaHome, link: "/dashboard" },
   { name: "Goal Setting", icon: GoGoal, link: "/goalsetting" },
-  { name: "Habit Tracker", icon: PiStepsDuotone, link: "/tracker" },
+  { name: "Habit Tracker", icon: PiStepsDuotone, link: "/habittracker" },
   { name: "Journal", icon: BsJournals, link: "/journal" },
   { name: "Vision Board", icon: GiStumpRegrowth, link: "/visionboard" },
   { name: "Future Letters", icon: FaHeart, link: "#" },

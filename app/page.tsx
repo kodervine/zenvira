@@ -5,6 +5,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col justify-between">
       <Link href="/goalsetting">Goal setting</Link>
       <Link href="/register">Register</Link>
+      <Link href="/habittracker">Register</Link>
     </main>
   );
 }

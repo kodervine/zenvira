@@ -12,6 +12,7 @@ interface CustomInputProps {
   label: string;
   placeholder: string;
   type?: any;
+  className?: string;
   // todo -  should not be any
   name: string;
   control: any;
@@ -22,6 +23,7 @@ export function CustomInputField({
   placeholder,
   name,
   control,
+  className = "w-full",
   type = "text",
 }: CustomInputProps) {
   return (
@@ -32,7 +34,12 @@ export function CustomInputField({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} type={type} {...field} />
+            <Input
+              placeholder={placeholder}
+              type={type}
+              className={className}
+              {...field}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
