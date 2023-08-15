@@ -29,7 +29,7 @@ Check out the live demo of Zenvira:
 This project is built using these tools and technologies:
 
 - **TypeScript:** A statically typed superset of JavaScript for improved code quality.
-- **React:** A popular JavaScript library for building user interfaces.
+- **Nextjs:** A server side JavaScript framework for building user interfaces.
 - **Tailwind CSS:** A utility-first CSS framework for fast and responsive UI development.
 - **Shadcn UI:** Re-usable components built using Radix UI and Tailwind CSS.
 - **React Hook Form:** Efficiently manage forms and form validations in React.
