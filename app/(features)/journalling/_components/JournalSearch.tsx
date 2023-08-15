@@ -51,7 +51,7 @@ export const Header = () => {
           }}
         >
           <TbNewSection className="text-white" />
-          <span>Create New Note</span>
+          <span>New Journal</span>
         </button>
       </section>
     </form>
