@@ -1,13 +1,19 @@
 import { create } from "zustand";
 
 type Journal = {
-  dateCreated: string;
-  // Other journal properties
+  createdAt: string | Date;
+  title: string;
+  content: string;
+  tag: string;
 };
 
 // Define the state type
 interface AppJournalStore {
   appJournals: Journal[];
+  selectedJournal: Journal | null;
+  isEditingJournal: boolean;
+  setSelectedJournal: (journal: Journal | null) => void;
+  setIsEditingJournal: (isEditing: boolean) => void;
   getJournalsFromLocalStorage: () => Journal[] | null;
   saveJournalsToLocalStorage: (journalsData: Journal[]) => void;
   sortAndUpdateJournals: (journals: Journal[]) => void;
@@ -21,7 +27,7 @@ interface AppJournalStore {
   handleSearchValue: (value: string) => void;
 }
 
-const useAppJournalStore = create<AppJournalStore>((set) => ({
+export const useAppJournalStore = create<AppJournalStore>((set) => ({
   searchJournalValue: "",
   appJournals: [],
   isEditingJournal: false,
@@ -44,7 +50,7 @@ const useAppJournalStore = create<AppJournalStore>((set) => ({
   sortAndUpdateJournals: (journals) => {
     const sortedJournals = journals.sort(
       (a, b) =>
-        new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
 
     set((state) => ({
@@ -63,6 +69,15 @@ const useAppJournalStore = create<AppJournalStore>((set) => ({
     }));
   },
 
+  // Implement action: Set selected journal
+  setSelectedJournal: (journal) => {
+    set({ selectedJournal: journal });
+  },
+
+  // Implement action: Set editing mode
+  setIsEditingJournal: (isEditing) => {
+    set({ isEditingJournal: isEditing });
+  },
   handleAddJournal: (journal) => {
     set((state) => ({
       ...state,
@@ -74,7 +89,7 @@ const useAppJournalStore = create<AppJournalStore>((set) => ({
     set((state) => ({
       ...state,
       appJournals: state.appJournals.map((journal) =>
-        journal.dateCreated === journalId
+        journal.createdAt === journalId
           ? { ...journal, ...updatedJournal }
           : journal
       ),
@@ -85,7 +100,7 @@ const useAppJournalStore = create<AppJournalStore>((set) => ({
     set((state) => ({
       ...state,
       appJournals: state.appJournals.filter(
-        (journal) => journal.dateCreated !== journalId
+        (journal) => journal.createdAt !== journalId
       ),
     }));
   },
@@ -97,22 +112,19 @@ const useAppJournalStore = create<AppJournalStore>((set) => ({
         case "newest":
           sortedJournals.sort(
             (a, b) =>
-              new Date(b.dateCreated).getTime() -
-              new Date(a.dateCreated).getTime()
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
           break;
         case "oldest":
           sortedJournals.sort(
             (a, b) =>
-              new Date(a.dateCreated).getTime() -
-              new Date(b.dateCreated).getTime()
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
           );
           break;
         default:
           sortedJournals.sort(
             (a, b) =>
-              new Date(b.dateCreated).getTime() -
-              new Date(a.dateCreated).getTime()
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
           break;
       }
@@ -130,5 +142,3 @@ const useAppJournalStore = create<AppJournalStore>((set) => ({
     }));
   },
 }));
-
-export default useAppJournalStore;

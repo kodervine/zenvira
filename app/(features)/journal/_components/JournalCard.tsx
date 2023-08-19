@@ -38,8 +38,8 @@ export const JournalCard = () => {
         </>
       )}
       {filteredNotes?.map((notes, index) => {
-        const { title, content, dateCreated, tag } = notes;
-        const dateObject = new Date(dateCreated);
+        const { title, content, createdAt, tag } = notes;
+        const dateObject = new Date(createdAt);
         const formattedDate = dateObject.toLocaleString("en-US", {
           day: "2-digit",
           month: "long",

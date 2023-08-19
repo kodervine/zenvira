@@ -1,4 +1,3 @@
-import React from "react";
 import { PiWarningCircleBold } from "react-icons/pi";
 import { useNoteContext } from "src/contexts";
 export const ConfirmationModal = () => {
@@ -18,7 +17,7 @@ export const ConfirmationModal = () => {
             type="button"
             className="text-white opacity-90 hover:opacity-100 bg-red-600 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
             onClick={() => {
-              handleDeleteNote(selectedNote.dateCreated);
+              handleDeleteNote(selectedNote.createdAt);
               handleCloseConfirmationModal();
             }}
           >

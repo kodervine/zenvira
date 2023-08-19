@@ -1,47 +1,65 @@
 import { useEffect, useState } from "react";
 import { MdAddTask, MdOutlineAddTask } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";
+import { useAppJournalStore } from "@/app/(features)/journal";
 
 export const JournalForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    dateCreated: new Date(),
+    createdAt: new Date(),
     tag: "",
   });
 
   const {
-    handleAddNote,
-    handleCloseFormModal,
-    selectedNote,
-    isEditingNote,
-    handleEditNote,
-  } = useNoteContext();
-  const handleInputChange = (event) => {
+    handleAddJournal, // Use the appropriate action names from your store
+    handleEditJournal,
+    selectedJournal,
+    isEditingJournal,
+    // other state variables you need
+  } = useAppJournalStore();
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleTextAreaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
   useEffect(() => {
-    isEditingNote &&
-      setFormData((prev) => {
+    isEditingJournal &&
+      setFormData((prev: any) => {
         return {
           ...prev,
-          title: selectedNote.title,
-          content: selectedNote.content,
-          dateCreated: selectedNote.dateCreated,
-          tag: selectedNote.tag,
+          title: selectedJournal?.title || "", // Provide a default value if undefined
+          content: selectedJournal?.content || "",
+          createdAt:
+            selectedJournal?.createdAt instanceof Date
+              ? selectedJournal.createdAt.toISOString()
+              : selectedJournal?.createdAt || "", // Provide a default value if undefined
+          tag: selectedJournal?.tag || "",
         };
       });
-  }, [selectedNote]);
-  const handleSubmitForm = (event) => {
+  }, [selectedJournal]);
+
+  const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (isEditingNote) {
-      handleEditNote(formData.dateCreated, formData);
+    if (isEditingJournal) {
+      const formattedDate = formData.createdAt.toISOString(); // Convert to string
+      handleEditJournal(formattedDate, formData);
     } else {
-      handleAddNote(formData);
+      handleAddJournal(formData);
     }
-    handleCloseFormModal();
+    // handleCloseFormModal();
   };
 
   // initial defined tags
@@ -58,7 +76,7 @@ export const JournalForm = () => {
         </div>
         <div className="block pl-2 font-semibold text-xl self-start text-gray-700">
           <h2 className="leading-relaxed">
-            {isEditingNote ? "Editing note" : "Add a New Note"}
+            {isEditingJournal ? "Editing note" : "Add a New Note"}
           </h2>
           <p className="text-sm text-gray-500 ">Get work done</p>
         </div>
@@ -80,12 +98,12 @@ export const JournalForm = () => {
         <div className="flex flex-col">
           <label htmlFor="content">Note content</label>
           <textarea
-            rows="10"
+            rows={10}
             className="block p-2.5 text-sm px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
             placeholder="What do you want to write about?"
             name="content"
             value={formData.content}
-            onChange={handleInputChange}
+            onChange={handleTextAreaChange}
             required
           ></textarea>
         </div>
@@ -96,7 +114,7 @@ export const JournalForm = () => {
               <select
                 name="tag"
                 value={formData.tag}
-                onChange={handleInputChange}
+                onChange={handleSelectChange}
                 className="px-4 py-2 pl-4 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
               >
                 <option value="">Choose tag</option>
@@ -128,7 +146,7 @@ export const JournalForm = () => {
         <button
           className="flex gap-2 justify-center items-center w-full px-4 py-3 rounded-md opacity-90 hover:opacity-100 focus:outline-none bg-red-600 text-white"
           type="button"
-          onClick={handleCloseFormModal}
+          // onClick={handleCloseFormModal}
         >
           <GiCancel />
           <span>Cancel</span>
@@ -138,7 +156,7 @@ export const JournalForm = () => {
           className="bg-gray-800 gap-2 flex opacity-90 hover:opacity-100 justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
         >
           <MdOutlineAddTask />
-          {isEditingNote ? "Update" : "Create"}
+          {isEditingJournal ? "Update" : "Create"}
         </button>
       </div>
     </form>
