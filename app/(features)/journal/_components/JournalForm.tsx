@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { MdAddTask, MdOutlineAddTask } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";

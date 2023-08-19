@@ -1,6 +1,6 @@
 import { MdSpeakerNotesOff } from "react-icons/md";
 
-export const NoNotesMessage = ({ message }: any) => {
+export const NoJournalMessage = ({ message }: any) => {
   return (
     <div className="flex flex-col items-center justify-center mt-8">
       <MdSpeakerNotesOff size={100} opacity={0.3} />

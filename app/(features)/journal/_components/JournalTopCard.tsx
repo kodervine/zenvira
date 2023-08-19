@@ -1,6 +1,8 @@
+"use client";
 import { CgNotes } from "react-icons/cg";
-export const TopCard = () => {
-  const { appNotes } = useNoteContext();
+import { useAppJournalStore } from "@/app/(features)/journal";
+export const JournalTopCard = () => {
+  const { appJournals } = useAppJournalStore();
 
   return (
     <section className="grid grid-cols-1 items-center justify-between my-2">
@@ -9,9 +11,11 @@ export const TopCard = () => {
           <CgNotes size={30} />
         </div>
         <div>
-          <span className="block text-2xl font-bold">{appNotes?.length}</span>
+          <span className="block text-2xl font-bold">
+            {appJournals?.length}
+          </span>
           <span className="block text-gray-500">
-            {appNotes?.length <= 1 ? "Total Note" : "Total Notes"}
+            {appJournals?.length <= 1 ? "Total Note" : "Total Notes"}
           </span>
         </div>
       </div>

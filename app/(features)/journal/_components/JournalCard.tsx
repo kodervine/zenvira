@@ -1,44 +1,36 @@
-import { useNoteContext } from "src/contexts";
+"use client";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
-import { ConfirmationModal, NoNotesMessage } from "src/components";
+import { useAppJournalStore, NoJournalMessage } from "@/app/(features)/journal";
 
 export const JournalCard = () => {
-  const {
-    appNotes,
-    searchNoteValue,
-    handleSelectNote,
-    setIsEditingNote,
-    selectedNote,
-    handleOpenFormModal,
-    openConfirmationModal,
-    handleOpenConfirmationModal,
-    handleCloseConfirmationModal,
-  } = useNoteContext();
+  const { appJournals, selectedJournal, setIsEditingJournal } =
+    useAppJournalStore();
 
-  const filteredNotes = appNotes?.filter((note) => {
-    return note.tag.toLowerCase().includes(searchNoteValue.toLowerCase());
+  const filteredJournal = appJournals?.filter((journal) => {
+    console.log(journal);
+    // return journal.tag.toLowerCase().includes(searchJournalValue.toLowerCase());
   });
-  if (filteredNotes?.length === 0) {
-    return <NoNotesMessage message="No notes match this tag" />;
+  if (filteredJournal?.length === 0) {
+    return <NoJournalMessage message="No entry match this tag" />;
   }
   return (
     <>
-      {openConfirmationModal && (
-        <>
-          <div
-            className="backdrop-filter backdrop-blur-lg bg-black opacity-70 z-30 fixed top-0 left-0 w-full h-screen"
-            onClick={handleCloseConfirmationModal}
-          ></div>
-          {selectedNote && (
-            <section className="absolute z-50 w-[90%] lg:w-[80%]">
-              <ConfirmationModal />
-            </section>
-          )}
-        </>
-      )}
-      {filteredNotes?.map((notes, index) => {
-        const { title, content, createdAt, tag } = notes;
+      {/* {openConfirmationModal && ( */}
+      <>
+        <div
+          className="backdrop-filter backdrop-blur-lg bg-black opacity-70 z-30 fixed top-0 left-0 w-full h-screen"
+          // onClick={handleCloseConfirmationModal}
+        ></div>
+        {selectedJournal && (
+          <section className="absolute z-50 w-[90%] lg:w-[80%]">
+            {/* <ConfirmationModal /> */}
+          </section>
+        )}
+      </>
+      {/* )} */}
+      {filteredJournal?.map((Journal, index) => {
+        const { title, content, createdAt, tag } = Journal;
         const dateObject = new Date(createdAt);
         const formattedDate = dateObject.toLocaleString("en-US", {
           day: "2-digit",
@@ -61,9 +53,9 @@ export const JournalCard = () => {
                 {content.slice(0, 200)}{" "}
                 <span
                   onClick={() => {
-                    handleSelectNote(notes);
-                    setIsEditingNote(true);
-                    handleOpenFormModal();
+                    // handleSelectJournal(Journal);
+                    setIsEditingJournal(true);
+                    // handleOpenFormModal();
                   }}
                   className="text-blue-600 underline cursor-pointer"
                 >
@@ -77,19 +69,19 @@ export const JournalCard = () => {
                 <button
                   className="bg-gray-900 rounded-full flex p-2 items-center justify-center cursor-pointer"
                   onClick={() => {
-                    handleSelectNote(notes);
-                    setIsEditingNote(true);
-                    handleOpenFormModal();
+                    // handleSelectJournal(Journal);
+                    setIsEditingJournal(true);
+                    // handleOpenFormModal();
                   }}
                 >
                   <BiSolidEditAlt size={16} color="white" />
                 </button>
                 <button
                   className="bg-red-600 rounded-full flex p-2 items-center justify-center cursor-pointer"
-                  onClick={() => {
-                    handleSelectNote(notes);
-                    handleOpenConfirmationModal();
-                  }}
+                  // onClick={() => {
+                  //   handleSelectJournal(Journal);
+                  //   handleOpenConfirmationModal();
+                  // }}
                 >
                   <AiOutlineDelete size={16} color="white" />
                 </button>

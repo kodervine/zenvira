@@ -1,19 +1,18 @@
-import { useNoteContext } from "src/contexts";
+"use client";
 import { TbNewSection } from "react-icons/tb";
+import { useAppJournalStore } from "@/app/(features)/journal";
 export const Header = () => {
-  const {
-    handleSortAppNotes,
-    handleSearchValue,
-    handleOpenFormModal,
-    setIsEditingNote,
-  } = useNoteContext();
+  const { handleSortAppJournals, setIsEditingJournal, handleSearchValue } =
+    useAppJournalStore();
 
-  const handleSortChange = (event) => {
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = event.target.value;
-    handleSortAppNotes(selectedOption);
+    handleSortAppJournals(selectedOption);
   };
 
-  const handleSearchInputChange = (event) => {
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     handleSearchValue(event.target.value);
   };
 
@@ -46,8 +45,8 @@ export const Header = () => {
           type="button"
           className="text-white lg:w-full bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 flex  gap-3 items-center"
           onClick={() => {
-            setIsEditingNote(false);
-            handleOpenFormModal();
+            setIsEditingJournal(false);
+            // handleOpenFormModal();
           }}
         >
           <TbNewSection className="text-white" />
