@@ -1,23 +1,13 @@
 import { create } from "zustand";
-import { immer } from "zustand/middleware";
 
 type Journal = {
-  dateCreated: string; // Adjust this type as per your actual journal structure
+  dateCreated: string;
   // Other journal properties
 };
 
-type AppJournalStore = {
-  searchJournalValue: string;
+// Define the state type
+interface AppJournalStore {
   appJournals: Journal[];
-  isEditingJournal: boolean;
-  selectedJournal: Journal | null;
-  openJournalFormModal: boolean;
-  openConfirmationModal: boolean;
-  setSearchJournalValue: (value: string) => void;
-  setIsEditingJournal: (isEditing: boolean) => void;
-  setSelectedJournal: (journal: Journal | null) => void;
-  setOpenJournalFormModal: (isOpen: boolean) => void;
-  setOpenConfirmationModal: (isOpen: boolean) => void;
   getJournalsFromLocalStorage: () => Journal[] | null;
   saveJournalsToLocalStorage: (journalsData: Journal[]) => void;
   sortAndUpdateJournals: (journals: Journal[]) => void;
@@ -29,130 +19,116 @@ type AppJournalStore = {
   handleDeleteJournal: (journalId: string) => void;
   handleSortAppJournals: (sortingOption: string) => void;
   handleSearchValue: (value: string) => void;
-};
+}
 
-const useAppJournalStore = create<AppJournalStore>(
-  immer((set) => ({
-    searchJournalValue: "",
-    appJournals: [],
-    isEditingJournal: false,
-    selectedJournal: null,
-    openJournalFormModal: false,
-    openConfirmationModal: false,
+const useAppJournalStore = create<AppJournalStore>((set) => ({
+  searchJournalValue: "",
+  appJournals: [],
+  isEditingJournal: false,
+  selectedJournal: null,
+  openJournalFormModal: false,
+  openConfirmationModal: false,
 
-    setSearchJournalValue: (value: string) =>
-      set((state) => {
-        state.searchJournalValue = value;
-      }),
+  // Implement action: Get journals from local storage
+  getJournalsFromLocalStorage: () => {
+    const journalsData = localStorage.getItem("appJournals");
+    return journalsData ? JSON.parse(journalsData) : null;
+  },
 
-    setIsEditingJournal: (isEditing: boolean) =>
-      set((state) => {
-        state.isEditingJournal = isEditing;
-      }),
+  // Implement action: Save journals to local storage
+  saveJournalsToLocalStorage: (journalsData) => {
+    localStorage.setItem("appJournals", JSON.stringify(journalsData));
+  },
 
-    setSelectedJournal: (journal: Journal | null) =>
-      set((state) => {
-        state.selectedJournal = journal;
-      }),
+  // Implement action: Sort and update journals
+  sortAndUpdateJournals: (journals) => {
+    const sortedJournals = journals.sort(
+      (a, b) =>
+        new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+    );
 
-    setOpenJournalFormModal: (isOpen: boolean) =>
-      set((state) => {
-        state.openJournalFormModal = isOpen;
-      }),
+    set((state) => ({
+      ...state,
+      appJournals: sortedJournals,
+    }));
 
-    setOpenConfirmationModal: (isOpen: boolean) =>
-      set((state) => {
-        state.openConfirmationModal = isOpen;
-      }),
+    // Update local storage with the sorted journals
+    const updatedJournals = sortedJournals.map((journal) => ({
+      ...journal,
+      // Update any additional properties if needed
+    }));
+    set((state) => ({
+      ...state,
+      appJournals: updatedJournals,
+    }));
+  },
 
-    getJournalsFromLocalStorage: () => {
-      const journalsData = localStorage.getItem("appJournals");
-      return journalsData ? JSON.parse(journalsData) : null;
-    },
+  handleAddJournal: (journal) => {
+    set((state) => ({
+      ...state,
+      appJournals: [...state.appJournals, journal],
+    }));
+  },
 
-    saveJournalsToLocalStorage: (journalsData: Journal[]) => {
-      localStorage.setItem("appJournals", JSON.stringify(journalsData));
-    },
+  handleEditJournal: (journalId, updatedJournal) => {
+    set((state) => ({
+      ...state,
+      appJournals: state.appJournals.map((journal) =>
+        journal.dateCreated === journalId
+          ? { ...journal, ...updatedJournal }
+          : journal
+      ),
+    }));
+  },
 
-    sortAndUpdateJournals: (journals: Journal[]) => {
-      const sortedJournals = journals.sort(
-        (a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)
-      );
-      set((state) => {
-        state.appJournals = sortedJournals;
-      });
-      saveJournalsToLocalStorage(sortedJournals);
-    },
+  handleDeleteJournal: (journalId) => {
+    set((state) => ({
+      ...state,
+      appJournals: state.appJournals.filter(
+        (journal) => journal.dateCreated !== journalId
+      ),
+    }));
+  },
 
-    handleAddJournal: (journal: Journal) =>
-      set((state) => {
-        const updatedJournals = [...state.appJournals, journal];
-        state.appJournals = updatedJournals;
-        state.sortAndUpdateJournals(updatedJournals);
-      }),
-
-    handleEditJournal: (journalId: string, updatedJournal: Partial<Journal>) =>
-      set((state) => {
-        const updatedJournalArray = state.appJournals.map((journal) => {
-          return journal.dateCreated === journalId
-            ? { ...journal, ...updatedJournal }
-            : journal;
-        });
-        state.sortAndUpdateJournals(updatedJournalArray);
-      }),
-
-    handleDeleteJournal: (journalId: string) =>
-      set((state) => {
-        const updatedJournalArray = state.appJournals.filter((journal) => {
-          return journal.dateCreated !== journalId;
-        });
-        state.sortAndUpdateJournals(updatedJournalArray);
-      }),
-
-    handleSortAppJournals: (sortingOption: string) =>
-      set((state) => {
-        const sortedJournals = [...state.appJournals];
-        switch (sortingOption) {
-          case "newest":
-            sortedJournals.sort(
-              (a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)
-            );
-            break;
-          case "oldest":
-            sortedJournals.sort(
-              (a, b) => new Date(a.dateCreated) - new Date(b.dateCreated)
-            );
-            break;
-          default:
-            sortedJournals.sort(
-              (a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)
-            );
-            break;
-        }
-        state.appJournals = sortedJournals;
-      }),
-
-    handleSearchValue: (value: string) =>
-      set((state) => {
-        state.searchJournalValue = value;
-      }),
-
-    init: () => {
-      const journalsDataFromLocalStorage = getJournalsFromLocalStorage();
-      if (journalsDataFromLocalStorage) {
-        const sortedJournals = journalsDataFromLocalStorage.sort(
-          (a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)
-        );
-        set((state) => {
-          state.appJournals = sortedJournals;
-        });
-      } else {
-        set((state) => {
-          state.appJournals = [];
-        });
+  handleSortAppJournals: (sortingOption) => {
+    set((state) => {
+      const sortedJournals = [...state.appJournals];
+      switch (sortingOption) {
+        case "newest":
+          sortedJournals.sort(
+            (a, b) =>
+              new Date(b.dateCreated).getTime() -
+              new Date(a.dateCreated).getTime()
+          );
+          break;
+        case "oldest":
+          sortedJournals.sort(
+            (a, b) =>
+              new Date(a.dateCreated).getTime() -
+              new Date(b.dateCreated).getTime()
+          );
+          break;
+        default:
+          sortedJournals.sort(
+            (a, b) =>
+              new Date(b.dateCreated).getTime() -
+              new Date(a.dateCreated).getTime()
+          );
+          break;
       }
-    },
-  }))
-);
+      return {
+        ...state,
+        appJournals: sortedJournals,
+      };
+    });
+  },
+
+  handleSearchValue: (value) => {
+    set((state) => ({
+      ...state,
+      searchJournalValue: value,
+    }));
+  },
+}));
 
 export default useAppJournalStore;
